@@ -134,3 +134,5 @@ xiao_config.json
 config/
 *.mp3
 .pdm-python
+
+start.sh

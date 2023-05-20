@@ -27,6 +27,7 @@ HARDWARE_COMMAND_DICT = {
     "LX5A": ("5-1", "5-5"),  # 小爱红外版
     "L07A": ("5-1", "5-5"),  # Redmi小爱音箱Play(l7a)
     "L15A": ("7-3", "7-4"),
+    "M03A": ("7-3", "7-4"),  # 小爱 Sound Move
     "X6A": ("7-3", "7-4"),  # 小米智能家庭屏6
     # add more here
 }
@@ -40,11 +41,11 @@ EDGE_TTS_DICT = {
     # add more here
 }
 
-DEFAULT_COMMAND = ("5-1", "5-5")
+DEFAULT_COMMAND = ("7-3", "7-4")
 
-KEY_WORD = ("帮我", "请回答")
+KEY_WORD = ("查查", "查一查", "查一下")
 CHANGE_PROMPT_KEY_WORD = ("更改提示词",)
-PROMPT = "以下请用100字以内回答，请只回答文字不要带链接"
+PROMPT = "请用100字以内回答，请只回答文字不要带链接。如果我说的是英语，请用英语回答。"
 # simulate_xiaoai_question
 MI_ASK_SIMULATE_DATA = {
     "code": 0,
@@ -55,7 +56,7 @@ MI_ASK_SIMULATE_DATA = {
 
 @dataclass
 class Config:
-    hardware: str = "LX06"
+    hardware: str = "M03A"
     account: str = os.getenv("MI_USER", "")
     password: str = os.getenv("MI_PASS", "")
     openai_key: str = os.getenv("OPENAI_API_KEY", "")
