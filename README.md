@@ -1,3 +1,8 @@
+# build image
+buildah login docker.io
+buildah build --platform linux/arm64 -f Dockerfile -t engchina/xiaogpt:v1 .
+buildah push engchina/xiaogpt:v1
+
 # xiaogpt
 
 [![PyPI](https://img.shields.io/pypi/v/xiaogpt?style=flat-square)](https://pypi.org/project/xiaogpt)
