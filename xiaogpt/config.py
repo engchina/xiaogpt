@@ -43,9 +43,9 @@ EDGE_TTS_DICT = {
 
 DEFAULT_COMMAND = ("7-3", "7-4")
 
-KEY_WORD = ("查查", "查一查", "查一下")
+KEY_WORD = ("查查", "查一查", "查一下", "你认为", "你觉得")
 CHANGE_PROMPT_KEY_WORD = ("更改提示词",)
-PROMPT = "请用100字以内回答，请只回答文字不要带链接。如果我说的是英语，请用英语回答。"
+PROMPT = "请用120字以内回答，请只回答文字不要带链接。"
 # simulate_xiaoai_question
 MI_ASK_SIMULATE_DATA = {
     "code": 0,
@@ -65,10 +65,10 @@ class Config:
     keyword: Iterable[str] = KEY_WORD
     change_prompt_keyword: Iterable[str] = CHANGE_PROMPT_KEY_WORD
     prompt: str = PROMPT
-    mute_xiaoai: bool = False
-    bot: str = "chatgpt"
+    mute_xiaoai: bool = True
+    bot: str = "chatgptapi"
     cookie: str = ""
-    api_base: str = os.getenv("OPENAI_API_BASE", "") | None = None
+    api_base: str = os.getenv("OPENAI_API_BASE", "")
     deployment_id: str | None = None
     use_command: bool = False
     verbose: bool = False
@@ -138,5 +138,7 @@ class Config:
                         key, value = "bot", "gpt3"
                     elif key == "use_newbing":
                         key, value = "bot", "newbing"
+                    else:
+                        key, value = "bot", "chatgptapi"
                     result[key] = value
         return result
