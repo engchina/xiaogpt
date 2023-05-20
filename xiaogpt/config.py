@@ -68,7 +68,7 @@ class Config:
     mute_xiaoai: bool = False
     bot: str = "chatgpt"
     cookie: str = ""
-    api_base: str | None = None
+    api_base: str = os.getenv("OPENAI_API_BASE", "") | None = None
     deployment_id: str | None = None
     use_command: bool = False
     verbose: bool = False
