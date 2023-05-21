@@ -100,6 +100,13 @@ def main():
         help="new bing cookies path if use new bing",
     )
     group.add_argument(
+        "--use_slackclaude",
+        dest="bot",
+        action="store_const",
+        const="slackclaude",
+        help="if use slackclaude",
+    )
+    group.add_argument(
         "--bot", dest="bot", help="bot type", choices=["gpt3", "chatgptapi", "newbing"]
     )
     parser.add_argument(

@@ -43,9 +43,9 @@ EDGE_TTS_DICT = {
 
 DEFAULT_COMMAND = ("7-3", "7-4")
 
-KEY_WORD = ("查查", "查一查", "查一下", "算一算", "想一想", "请问", "问一下", "你认为", "你觉得", "你知道", "介绍一下", "解释一下", "说明一下", "总结一下")
+KEY_WORD = ("帮我查查", "查查", "查一查", "查一下", "算一算", "想一想", "请问", "问一下", "你说", "你认为", "你觉得", "你知道", "介绍一下", "解释一下", "说明一下", "总结一下", "我问你", "告诉我", "请告诉我", "我想知道")
 CHANGE_PROMPT_KEY_WORD = ("更改提示词",)
-PROMPT = "请用120字以内回答，请只回答文字不要带链接。"
+PROMPT = "请用60字以内回答，请只回答文字不要带链接，回答里面不要包含特殊字符。请只说明事实，避免个人观点。请简要扼要回答问题。请避免修饰语和夸张表述。请只包含必要信息，删除次要内容。"
 # simulate_xiaoai_question
 MI_ASK_SIMULATE_DATA = {
     "code": 0,
@@ -66,7 +66,8 @@ class Config:
     change_prompt_keyword: Iterable[str] = CHANGE_PROMPT_KEY_WORD
     prompt: str = PROMPT
     mute_xiaoai: bool = True
-    bot: str = "chatgptapi"
+    # bot: str = "chatgptapi"
+    bot: str = "slackclaude"
     cookie: str = ""
     api_base: str = os.getenv("OPENAI_API_BASE", "")
     deployment_id: str | None = None
@@ -81,6 +82,8 @@ class Config:
     gpt_options: dict[str, Any] = field(default_factory=dict)
     bing_cookie_path: str = ""
     bing_cookies: dict | None = None
+    slack_claude_user_token: str = os.getenv("SLACK_CLAUDE_USER_TOKEN", "")
+    slack_claude_bot_id: str = os.getenv("SLACK_CLAUDE_BOT_ID", "")
 
     def __post_init__(self) -> None:
         if self.proxy:
@@ -91,6 +94,11 @@ class Config:
                     "New bing bot needs bing_cookie_path or bing_cookies, read this: "
                     "https://github.com/acheong08/EdgeGPT#getting-authentication-required"
                 )
+        elif self.bot == "slackclaude":
+            if not (self.slack_claude_user_token or self.slack_claude_bot_id):
+                raise Exception(
+                    "Slack claude bot needs slack_claude_user_token or slack_claude_bot_id."
+                )                
         elif not self.openai_key:
             raise Exception("Using GPT api needs openai API key, please google how to")
         if (
@@ -138,6 +146,8 @@ class Config:
                         key, value = "bot", "gpt3"
                     elif key == "use_newbing":
                         key, value = "bot", "newbing"
+                    elif key == "use_slackclaude":
+                        key, value = "bot", "slackclaude"
                     else:
                         key, value = "bot", "chatgptapi"
                     result[key] = value
