@@ -423,7 +423,7 @@ class MiGPT:
             task = asyncio.create_task(self.poll_latest_ask())
             assert task is not None  # to keep the reference to task, do not remove this
             print(f"Running xiaogpt now, 用`{'/'.join(self.config.keyword)}`开头来提问")
-            print(f"或用`{self.config.start_conversation}`开始持续对话")
+            print(f"或用`{self.config.start_conversation}`开启高级对话")
             while True:
                 self.polling_event.set()
                 await self.new_record_event.wait()
@@ -434,14 +434,14 @@ class MiGPT:
 
                 if query == self.config.start_conversation:
                     if not self.in_conversation:
-                        print("开始对话")
+                        print("高级对话已开启")
                         self.in_conversation = True
                         await self.wakeup_xiaoai()
                     await self.stop_if_xiaoai_is_playing()
                     continue
                 elif query == self.config.end_conversation:
                     if self.in_conversation:
-                        print("结束对话")
+                        print("高级对话已关闭")
                         self.in_conversation = False
                     await self.stop_if_xiaoai_is_playing()
                     continue
@@ -468,7 +468,7 @@ class MiGPT:
                     # waiting for xiaoai speaker done
                     await asyncio.sleep(8)
                 # await self.do_tts("请忽略刚才的回复，正在问GPT请耐心等待")
-                await self.do_tts("中断小爱的回复，开始问GPT请耐心等待")
+                await self.do_tts("中断小爱的回答，开始问GPT请耐心等待")
                 try:
                     print(
                         "以下是小爱的回答: ",

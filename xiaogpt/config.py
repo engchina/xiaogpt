@@ -73,8 +73,8 @@ class Config:
     deployment_id: str | None = None
     use_command: bool = False
     verbose: bool = False
-    start_conversation: str = "开始持续对话"
-    end_conversation: str = "结束持续对话"
+    start_conversation: str = "开启高级对话"
+    end_conversation: str = "关闭高级对话"
     stream: bool = False
     enable_edge_tts: bool = False
     localhost: bool = True
