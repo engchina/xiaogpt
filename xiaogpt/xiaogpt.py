@@ -446,27 +446,30 @@ class MiGPT:
                     await self.stop_if_xiaoai_is_playing()
                     continue
 
+                if not self.need_ask_gpt(new_record):
+                    self.log.debug("No new xiao ai record")
+                    continue
+
+                if self.config.mute_xiaoai:
+                    await self.stop_if_xiaoai_is_playing()
+                    await self.do_tts('')
+                else:
+                    # waiting for xiaoai speaker done
+                    await asyncio.sleep(8)
+
                 # we can change prompt
                 if self.need_change_prompt(new_record):
                     print(new_record)
                     self._change_prompt(new_record.get("query", ""))
 
-                if not self.need_ask_gpt(new_record):
-                    self.log.debug("No new xiao ai record")
-                    continue
-
-                # drop 帮我回答
+                # drop 唤醒词
                 query = re.sub(rf"^({'|'.join(self.config.keyword)})", "", query)
 
                 print("-" * 20)
                 print("问题：" + query + "？")
                 if not self.chatbot.history:
                     query = f"{query}，{self.config.prompt}"
-                if self.config.mute_xiaoai:
-                    await self.stop_if_xiaoai_is_playing()
-                else:
-                    # waiting for xiaoai speaker done
-                    await asyncio.sleep(8)
+
                 # await self.do_tts("请忽略刚才的回复，正在问GPT请耐心等待")
                 # await self.do_tts("中断小爱的回答，开始问GPT请耐心等待")
                 await self.do_tts("中断小爱转GPT回答")
