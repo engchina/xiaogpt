@@ -77,7 +77,7 @@ class Config:
     verbose: bool = False
     start_conversation: str = "开启高级对话"
     end_conversation: str = "关闭高级对话"
-    stream: bool = False
+    stream: bool = True
     enable_edge_tts: bool = False
     localhost: bool = True
     edge_tts_voice: str = "zh-CN-XiaoxiaoNeural"
