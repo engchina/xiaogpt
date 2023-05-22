@@ -136,3 +136,4 @@ config/
 .pdm-python
 
 start.sh
+start.cmd

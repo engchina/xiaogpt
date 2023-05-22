@@ -12,10 +12,10 @@ _reference_link_re = re.compile(r"\[\d+\]: .+?\n+")
 
 class NewBingBot(BaseBot):
     def __init__(
-        self,
-        bing_cookie_path: str = "",
-        bing_cookies: dict | None = None,
-        proxy: str | None = None,
+            self,
+            bing_cookie_path: str = "",
+            bing_cookies: dict | None = None,
+            proxy: str | None = None,
     ):
         self.history = []
         self._bot = Chatbot(
@@ -56,7 +56,7 @@ class NewBingBot(BaseBot):
                 text = self.clean_text(resp)
                 if text == current:
                     continue
-                diff = text[len(current) :]
+                diff = text[len(current):]
                 print(diff, end="")
                 yield diff
                 current = text

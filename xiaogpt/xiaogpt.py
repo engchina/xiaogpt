@@ -204,9 +204,9 @@ class MiGPT:
     def need_ask_gpt(self, record):
         query = record.get("query", "")
         return (
-            self.in_conversation
-            and not query.startswith(WAKEUP_KEYWORD)
-            or query.startswith(tuple(self.config.keyword))
+                self.in_conversation
+                and not query.startswith(WAKEUP_KEYWORD)
+                or query.startswith(tuple(self.config.keyword))
         )
 
     def need_change_prompt(self, record):
@@ -296,7 +296,7 @@ class MiGPT:
     async def get_file_url(self, stream):
         if self.config.localhost:
             with tempfile.NamedTemporaryFile(
-                "wb", suffix=".mp3", delete=False, dir=self.temp_dir.name
+                    "wb", suffix=".mp3", delete=False, dir=self.temp_dir.name
             ) as f:
                 shutil.copyfileobj(stream, f)
                 return f"http://{self.hostname}:{self.port}/{os.path.basename(f.name)}"
@@ -365,7 +365,7 @@ class MiGPT:
             async with ClientSession(trust_env=True) as session:
                 openai.aiosession.set(session)
                 async for message in self.chatbot.ask_stream(
-                    query, **self.config.gpt_options
+                        query, **self.config.gpt_options
                 ):
                     await queue.put(message)
 
@@ -399,8 +399,8 @@ class MiGPT:
         playing_info = await self.mina_service.player_get_status(self.device_id)
         # WTF xiaomi api
         is_playing = (
-            json.loads(playing_info.get("data", {}).get("info", "{}")).get("status", -1)
-            == 1
+                json.loads(playing_info.get("data", {}).get("info", "{}")).get("status", -1)
+                == 1
         )
         return is_playing
 
@@ -468,7 +468,8 @@ class MiGPT:
                     # waiting for xiaoai speaker done
                     await asyncio.sleep(8)
                 # await self.do_tts("请忽略刚才的回复，正在问GPT请耐心等待")
-                await self.do_tts("中断小爱的回答，开始问GPT请耐心等待")
+                # await self.do_tts("中断小爱的回答，开始问GPT请耐心等待")
+                await self.do_tts("中断小爱转GPT回答")
                 try:
                     print(
                         "以下是小爱的回答: ",
@@ -483,8 +484,8 @@ class MiGPT:
                             await self.do_tts(message, wait_for_finish=True)
                     else:
                         tts_lang = (
-                            find_key_by_partial_string(EDGE_TTS_DICT, query)
-                            or self.config.edge_tts_voice
+                                find_key_by_partial_string(EDGE_TTS_DICT, query)
+                                or self.config.edge_tts_voice
                         )
                         # tts with edge_tts
                         await self.edge_tts(self.ask_gpt(query), tts_lang)

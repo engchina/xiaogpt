@@ -43,9 +43,11 @@ EDGE_TTS_DICT = {
 
 DEFAULT_COMMAND = ("7-3", "7-4")
 
-KEY_WORD = ("帮我查查", "查查", "查一查", "查一下", "算一算", "想一想", "请问", "问一下", "你说", "你认为", "你觉得", "你知道", "介绍一下", "解释一下", "说明一下", "总结一下", "我问你", "告诉我", "请告诉我", "我想知道")
+KEY_WORD = (
+    "帮我查查", "查查", "查一查", "查一下", "算一算", "想一想", "请问", "问一下", "你说", "你认为", "你觉得", "你知道",
+    "介绍一下", "解释一下", "说明一下", "我问你", "告诉我", "请告诉我", "我想知道", "我想问你", "我想了解")
 CHANGE_PROMPT_KEY_WORD = ("更改提示词",)
-PROMPT = "请用60字以内回答，请只回答文字不要带链接，回答里面不要包含特殊字符。请只说明事实，避免个人观点。请简要扼要回答问题。请避免修饰语和夸张表述。请只包含必要信息，删除次要内容。"
+PROMPT = "请用100字以内回答，并且请快速生成前2句话。请只回答文字不要带链接。请只说明事实。请简要扼要回答问题。请只包含必要信息，删除次要内容。"
 # simulate_xiaoai_question
 MI_ASK_SIMULATE_DATA = {
     "code": 0,
@@ -98,13 +100,13 @@ class Config:
             if not (self.slack_claude_user_token or self.slack_claude_bot_id):
                 raise Exception(
                     "Slack claude bot needs slack_claude_user_token or slack_claude_bot_id."
-                )                
+                )
         elif not self.openai_key:
             raise Exception("Using GPT api needs openai API key, please google how to")
         if (
-            self.api_base
-            and self.api_base.endswith(("openai.azure.com", "openai.azure.com/"))
-            and not self.deployment_id
+                self.api_base
+                and self.api_base.endswith(("openai.azure.com", "openai.azure.com/"))
+                and not self.deployment_id
         ):
             raise Exception(
                 "Using Azure OpenAI needs deployment_id, read this: "

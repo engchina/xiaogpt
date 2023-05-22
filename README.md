@@ -1,7 +1,10 @@
 # build image
+
+```shell
 buildah login docker.io
-buildah build --platform linux/arm64 -f Dockerfile -t engchina/xiaogpt:v1 .
-buildah push engchina/xiaogpt:v1
+buildah build --platform linux/arm64 -f Dockerfile -t engchina/xiaogpt-claude:v5 .
+buildah push engchina/xiaogpt-claude:v5
+```
 
 # xiaogpt
 

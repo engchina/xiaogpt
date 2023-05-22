@@ -11,11 +11,11 @@ class ChatGPTBot(BaseBot):
     default_options = {"model": "gpt-3.5-turbo"}
 
     def __init__(
-        self,
-        openai_key: str,
-        api_base: str | None = None,
-        proxy: str | None = None,
-        deployment_id: str | None = None,
+            self,
+            openai_key: str,
+            api_base: str | None = None,
+            proxy: str | None = None,
+            deployment_id: str | None = None,
     ) -> None:
         self.history = []
         openai.api_key = openai_key
